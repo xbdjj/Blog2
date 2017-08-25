@@ -1,0 +1,5 @@
+body{
+    background:url(http://localhost:8080/public/img/avatar.jpg) no-repeat;
+    background-size: 100px 100px;
+    color: yellow;
+}
