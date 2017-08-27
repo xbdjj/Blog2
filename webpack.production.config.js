@@ -29,6 +29,12 @@ module.exports={
 					fallback: "style-loader",
 					use: "css-loader"
 				})
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+                use: [
+                    'file-loader?limit=8192&name=/fonts/[name].[ext]'
+                ]
             }
 
 
@@ -44,6 +50,19 @@ module.exports={
             },
             allChunks: true
         }),
+        {
+            //管理入口文件js
+            test: /\.js$/,
+            //排除哪个目录
+            exclude: /(node_modules)/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['env'],
+                  plugins: ['transform-runtime']
+                }
+              }
+        },
         //把jquery的全局变量提取出来的插件(jQuery not undefined)
 		new webpack.ProvidePlugin({
 			$:'jquery',

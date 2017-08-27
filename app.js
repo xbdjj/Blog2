@@ -1,7 +1,26 @@
 const express=require('express');
 //引入模板
 const swig=require('swig');
+//处理前端的POST请求
+const bodyParser = require('body-parser');
+//引入连接数据库的插件（驱动）
+const mongoose = require('mongoose');
+//引入session模块
+const session = require('express-session');
 const app=express();
+
+//session的中间件,加了它以后就可以在路由里面用req.session 获取到session
+app.use(session({
+    secret: 'alibaba',//用来对session进行加密的密钥，有了这个密钥，才能解密
+    resave: false,//是否重新保存会话
+    saveUninitialized: true //自动初始化会话
+}))
+
+//处理前端的POST请求的配置
+//处理前端传给后端的表单格式数据（表单提交、ajax提交）  fromdata
+app.use(bodyParser.urlencoded({ extended: false }))
+//处理前端以json格式传给后端的数据 application/json 
+app.use(bodyParser.json())
 
 //模板配置-----------------
 //配置应用模板
@@ -41,11 +60,10 @@ if(isDev){
     
 
     //---------------------------路由----------------------------------
-    app.get('/',(req,res,next)=>{
-        res.render('index');
-    });
+   
     //引入路由
-    app.use('/',require('./server/routers/api'));
+    require('./server/routes/routes')(app);
+
      //---------------------------路由end----------------------------------
 
      //引入browser-sync模块，实现修改前端代码浏览器自动刷新
@@ -79,11 +97,10 @@ if(isDev){
     app.use('/public',express.static(__dirname+'/public'));
 
     //---------------------------路由----------------------------------
-    app.get('/',(req,res,next)=>{
-        res.render('index');
-    });
+    
     //引入路由
-    app.use('/',require('./server/routers/api'));
+    require('./server/routes/routes')(app);
+
      //---------------------------路由end----------------------------------
 
     
@@ -93,6 +110,12 @@ if(isDev){
 
 }
 
+//'mongodb://主机名ip地址:端口号/数据库的名字'
+mongoose.connect('mongodb://localhost:27017/Blog2',(error)=>{
+    if(!error){
+        console.log('数据库连接成功');
+    }
+});
 
 /*
 //如果你想使用8080端口访问，可以把原先服务器改成3000端口，代码服务器改成8080
