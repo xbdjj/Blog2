@@ -6,7 +6,8 @@ const srcPath=path.resolve(__dirname,'src');
 
 module.exports={
     entry:{
-        'common/main':[srcPath+'/common/main.js','webpack-hot-middleware/client?reload=true']//4  指定重载策略，修改了前端代码js,css后，浏览器会自动刷新
+        'common/main':[srcPath+'/common/main.js','webpack-hot-middleware/client?reload=true'],//4  指定重载策略，修改了前端代码js,css后，浏览器会自动刷新
+        'common/admin-lib':['jquery','bootstrap','BOOTSTRAP_CSS'] // 在内存里生成文件public/common/admin-lib.js 和 public/common/admin-lib.css
     },
     output:{
         path:__dirname+'/public',
@@ -22,9 +23,11 @@ module.exports={
     devtool:'eval-source-map', //2
     //查找规则,优化速度
     resolve:{
+        modules:[srcPath,'node_modules'],//指定webpack查找文件目录
         //取别名，在自己的js里面直接使用这个别名
         alias: {
-           SRC:srcPath
+           SRC:srcPath,
+           BOOTSTRAP_CSS:'bootstrap/dist/css/bootstrap.css'
           }
     },
     module:{
@@ -58,7 +61,7 @@ module.exports={
                     loader: 'babel-loader',
                     options: {
                       presets: ['env'],
-                      plugins: ['transform-runtime']
+                      plugins: ['transform-runtime','syntax-dynamic-import']
                     }
                   }
             }

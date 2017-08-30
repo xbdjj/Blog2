@@ -111,10 +111,12 @@ if(isDev){
 }
 
 //'mongodb://主机名ip地址:端口号/数据库的名字'
-mongoose.connect('mongodb://localhost:27017/Blog2',(error)=>{
-    if(!error){
+mongoose.connect('mongodb://localhost:27017/Blog2',{ useMongoClient: true})
+.on('open',(db)=>{
         console.log('数据库连接成功');
-    }
+ })
+ .on('error',(error)=>{
+    console.log('数据库连接失败');
 });
 
 /*
