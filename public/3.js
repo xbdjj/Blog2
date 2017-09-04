@@ -1,0 +1,1 @@
+webpackJsonp([3],{9:function(p,a,n){p.exports=n.p+"/img/avatar.jpg"}});

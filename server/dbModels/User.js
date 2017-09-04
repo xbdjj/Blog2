@@ -5,6 +5,7 @@ let userSchema= new mongoose.Schema({
     password:String,
     email:String
 });
+
 //用面向对象的思想去操作数据库
 //我们不操作数据库本身，而是先造一个类（构造函数）,通过这个这个类
 //创建的对象来操作数据库集合

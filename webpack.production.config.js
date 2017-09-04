@@ -10,7 +10,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports={
     entry:{
         'common/main':[srcPath+'/common/main.js'],
-        'common/admin-lib':['bootstrap','BOOTSTRAP_CSS'] // 在内存里生成文件public/common/admin-lib.js 和 public/common/admin-lib.css
+        // 'common/admin-lib':['bootstrap','BOOTSTRAP_CSS'] // 在内存里生成文件public/common/admin-lib.js 和 public/common/admin-lib.css
         
     },
     output:{
@@ -18,6 +18,7 @@ module.exports={
         filename:'[name].js',
         publicPath:'http://localhost:8080/public',
     },
+    /*
      //查找规则,优化速度
      resolve:{
         modules:[srcPath,'node_modules'],//指定webpack查找文件目录
@@ -27,6 +28,7 @@ module.exports={
            BOOTSTRAP_CSS:'bootstrap/dist/css/bootstrap.css'
           }
     },
+    */
     module:{
         rules:[
             {
@@ -46,6 +48,19 @@ module.exports={
                 use: [
                     'file-loader?limit=8192&name=/fonts/[name].[ext]'
                 ]
+            },
+            {
+                //管理入口文件js
+                test: /\.js$/,
+                //排除哪个目录
+                exclude: /(node_modules)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                      presets: ['env'],
+                      plugins: ['transform-runtime','syntax-dynamic-import']
+                    }
+                  }
             }
 
 
@@ -61,19 +76,7 @@ module.exports={
             },
             allChunks: true
         }),
-        {
-            //管理入口文件js
-            test: /\.js$/,
-            //排除哪个目录
-            exclude: /(node_modules)/,
-            use: {
-                loader: 'babel-loader',
-                options: {
-                  presets: ['env'],
-                  plugins: ['transform-runtime']
-                }
-              }
-        },
+        
         //把jquery的全局变量提取出来的插件(jQuery not undefined)
 		new webpack.ProvidePlugin({
 			$:'jquery',

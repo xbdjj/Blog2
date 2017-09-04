@@ -1,5 +1,10 @@
 console.log('我是公共的js,很多页面都会引用我,也是入口文件');
-
+/*
+这两句代码作用一样因为加了'syntax-dynamic-import'
+import变为了关键赋值
+import {obj} from './lib';
+let obj=require('./lib');
+*/
 //require('../index/index');
 //取别名用的方式
 //require('SRC/login/login');

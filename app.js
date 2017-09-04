@@ -35,7 +35,9 @@ app.set('view engine','html');
 console.log('取出的变量值',process.env.NODE_ENV);
 //是否是开发模式
 const isDev=process.env.NODE_ENV==='dev';
-
+//将是否是开发模式存放到locals全局变量中，方便在 其他任何地方获取
+//多台电脑获取的值为同一个值
+app.locals.isDev=isDev;
 if(isDev){
         //设置不缓存
     swig.setDefaults({

@@ -5,7 +5,6 @@ let User = require('../dbModels/User');
 
 //后端响应给前端的数据格式
 let responseMesg;
-
 //在进入下面的路由之前，先调用中间件处理下
 //该中间件在api。js里，所以只拦截api。js里面的路由
 router.use((req, resp, next) => {

@@ -45,6 +45,7 @@
     "babel-runtime": "^6.26.0",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
+    "bootstrap-table": "^1.11.2",
     "express": "^4.15.4",
     "express-session": "^1.15.5",
     "jquery": "^3.2.1",

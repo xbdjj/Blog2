@@ -27,7 +27,8 @@ module.exports={
         //取别名，在自己的js里面直接使用这个别名
         alias: {
            SRC:srcPath,
-           BOOTSTRAP_CSS:'bootstrap/dist/css/bootstrap.css'
+           BOOTSTRAP_CSS:'bootstrap/dist/css/bootstrap.css',
+           BOOTSTRAP_TABLE_CSS:'bootstrap-table/dist/bootstrap-table.css'
           }
     },
     module:{
