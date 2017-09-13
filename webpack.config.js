@@ -1,5 +1,6 @@
 const webpack=require('webpack');
 const path=require('path');
+const CleanWebpackPlugin=require('clean-webpack-plugin');
 //源码目录
 const srcPath=path.resolve(__dirname,'src');
 
@@ -7,7 +8,8 @@ const srcPath=path.resolve(__dirname,'src');
 module.exports={
     entry:{
         'common/main':[srcPath+'/common/main.js','webpack-hot-middleware/client?reload=true'],//4  指定重载策略，修改了前端代码js,css后，浏览器会自动刷新
-        'common/admin-lib':['jquery','bootstrap','BOOTSTRAP_CSS'] // 在内存里生成文件public/common/admin-lib.js 和 public/common/admin-lib.css
+        'common/admin-lib':['jquery','bootstrap','BOOTSTRAP_CSS'], // 在内存里生成文件public/common/admin-lib.js 和 public/common/admin-lib.css
+        'common/lib':['jquery']
     },
     output:{
         path:__dirname+'/public',
@@ -70,6 +72,9 @@ module.exports={
         ]
     },
     plugins:[
+        new CleanWebpackPlugin(['public'],{
+            exclude:['ueditor']
+        }),
         //把jquery的全局变量提取出来的插件(jQuery not undefined)
 		new webpack.ProvidePlugin({
 			$:'jquery',

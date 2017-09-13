@@ -71,6 +71,11 @@ router.get('/article/pagination',(req,res,next)=>{
     Article.find().sort({
         [sort]:order//变量的sort和order
     }).skip(offset).limit(limit).then(articles=>{
+        // articles.map((item.index)=>{
+        //     console.log(item);
+        //     item.body=item.body.substring(0,50);
+        //     return
+        // });
         responseMesg.success=true;
         responseMesg.data.rows=articles
         res.json(responseMesg);

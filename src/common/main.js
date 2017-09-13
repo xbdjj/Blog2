@@ -21,7 +21,11 @@ if(modelPath){
         console.log('加载模块失败',err);
     });
 }
-
+//不是后台界面或者登陆界面
+if(!location.pathname.startsWith('admin')&&!location.pathname.startsWith('/login')){
+    require('jquery-pjax');    
+}
+  
 //在入口文件加入下面这行代码，可以实现  修改了js文件后，ajax刷新
 //不加的话  修改代码后整页直接刷新
 /*

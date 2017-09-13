@@ -1,3 +1,5 @@
+//传入id选择器，文章的内容
+var ue = UE.getEditor('body');
 //前端校验
 require('jquery-validation');
 //console.log($('form').validate);
@@ -53,7 +55,7 @@ $('form').validate({
             //提交到后台
             data:{
                 title:$('#title').val(),
-                body:$('#body').val()
+                body:ue.getContent()
             },
            
             success:function(resp){

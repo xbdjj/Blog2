@@ -1,1 +1,0 @@
-webpackJsonp([0,5],{0:function(n,o,c){"use strict";c(6),console.log("我是index.js 6")},6:function(n,o){}});
