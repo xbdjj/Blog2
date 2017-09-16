@@ -3,9 +3,34 @@ const express=require('express');
 const router=express.Router();
 let Article = require('../dbModels/Article');
 
+/**
+ * 判断是ajax请求还是  页面直接刷新的请求 的中间件
+ * 如果是ajax请求则返回片段
+ * 如果是直接刷新的请求 则返回完整页面
+ * 这个中间件只负责判断，不负责渲染
+ * x-requested-with:XMLHttpRequest
+ */
+router.use((req, res, next) => {
+    console.log('(nodejs API)是否是ajax请求：',req.header('x-requested-with')==='XMLHttpRequest');
+    console.log('(express API)是否是ajax请求：',req.xhr);
+    //req.app.locals.isAjax=req.xhr;//这个不能用，会出问题，因为它是全局的，整个服务器共享的
+    res.locals.isAjax = req.xhr;//一个请求对应的一个响应
+    next();
+})
+
+/**
+ * 首页
+ */
 router.get('/',(req,res,next)=>{
     res.render('index');
 });
+/**
+ * 文章详情
+ */
+router.get('/article/detail',(req,res,next)=>{
+    res.render('article-details');
+});
+
 
 router.get('/index',(req,res,next)=>{
     res.render('index');

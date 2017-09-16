@@ -22,8 +22,9 @@ if(modelPath){
     });
 }
 //不是后台界面或者登陆界面
-if(!location.pathname.startsWith('admin')&&!location.pathname.startsWith('/login')){
+if(!location.pathname.startsWith('/admin')&&!location.pathname.startsWith('/login')){
     require('jquery-pjax');    
+    $(document).pjax('a.pjax','#main');
 }
   
 //在入口文件加入下面这行代码，可以实现  修改了js文件后，ajax刷新

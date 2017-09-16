@@ -9,7 +9,7 @@ module.exports={
     entry:{
         'common/main':[srcPath+'/common/main.js','webpack-hot-middleware/client?reload=true'],//4  指定重载策略，修改了前端代码js,css后，浏览器会自动刷新
         'common/admin-lib':['jquery','bootstrap','BOOTSTRAP_CSS'], // 在内存里生成文件public/common/admin-lib.js 和 public/common/admin-lib.css
-        'common/lib':['jquery']
+        'common/lib':['jquery','APP_CSS']
     },
     output:{
         path:__dirname+'/public',
@@ -30,7 +30,8 @@ module.exports={
         alias: {
            SRC:srcPath,
            BOOTSTRAP_CSS:'bootstrap/dist/css/bootstrap.css',
-           BOOTSTRAP_TABLE_CSS:'bootstrap-table/dist/bootstrap-table.css'
+           BOOTSTRAP_TABLE_CSS:'bootstrap-table/dist/bootstrap-table.css',
+           APP_CSS:'SRC/common/app.less'
           }
     },
     module:{
@@ -42,10 +43,11 @@ module.exports={
                 use:'url-loader'
             },
             {
-                test:/\.css$/,
+                test:/(\.css|\.less)$/,
                 use:[
                     'style-loader',
-                    'css-loader?sourceMap' //2
+                    'css-loader?sourceMap', //2
+                    'less-loader'//处理.less后缀的文件
                 ]
             },
             {
