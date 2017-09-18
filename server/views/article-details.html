@@ -5,9 +5,12 @@
         <div id="singular-content">
             <article>
                 <header class="entry-header">
-                    <h1>程序猿风格的修真小说</h1>
+                    <h1>{{article.title}}</h1>
                 </header>
-                <div class="entry-content">内容</div>
+                  <!-- 
+                        raw()  确保html代码不会被转义  swig过滤器
+                    -->
+                <div class="entry-content">{{article.body|raw()}}</div>
                 <div class="clear"></div>
             </article>
         </div>

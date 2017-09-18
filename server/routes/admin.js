@@ -102,6 +102,7 @@ router.get('/article/:id',(req, res, next) => {
     console.log('req.params值'+req.params);
     
     Article.findById(id).then(article=>{
+        
         res.render('admin/article-edit',{
             //article:article
             article
