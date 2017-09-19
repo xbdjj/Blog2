@@ -9,26 +9,29 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports={
     entry:{
-        'common/main':[srcPath+'/common/main.js'],
-        // 'common/admin-lib':['bootstrap','BOOTSTRAP_CSS'] // 在内存里生成文件public/common/admin-lib.js 和 public/common/admin-lib.css
-        
+        'common/main':srcPath+'/common/main.js',//4  指定重载策略，修改了前端代码js,css后，浏览器会自动刷新
+        'common/admin-lib':['jquery','bootstrap','BOOTSTRAP_CSS'], // 在内存里生成文件public/common/admin-lib.js 和 public/common/admin-lib.css
+        'common/lib':['jquery','APP_CSS']
     },
     output:{
         path:__dirname+'/public',
         filename:'[name].js',
-        publicPath:'http://localhost:8080/public',
+        publicPath:'http://localhost:8080/public/',
+         //发布到线上的时候需要配置下，换成线上的域名地址  https://bigmeow.cn/public/
     },
-    /*
+
      //查找规则,优化速度
-     resolve:{
+   resolve:{
         modules:[srcPath,'node_modules'],//指定webpack查找文件目录
         //取别名，在自己的js里面直接使用这个别名
-        alias: {
-           SRC:srcPath,
-           BOOTSTRAP_CSS:'bootstrap/dist/css/bootstrap.css'
-          }
+        alias: { 
+            SRC:srcPath ,
+            BOOTSTRAP_CSS:'bootstrap/dist/css/bootstrap.css',
+            BOOTSTRAP_TABLE_CSS:'bootstrap-table/dist/bootstrap-table.css',
+            APP_CSS: 'SRC/common/app.less'
+        }
     },
-    */
+    
     module:{
         rules:[
             {
@@ -37,10 +40,10 @@ module.exports={
                 use:'url-loader?limit=8192&context=client&name=/img/[name].[ext]'
             },
             {
-                test:/\.css$/,
+                test:/(\.css|\.less)$/,
                 use:ExtractTextPlugin.extract({
 					fallback: "style-loader",
-					use: "css-loader"
+					use: ["css-loader",'less-loader']
 				})
             },
             {

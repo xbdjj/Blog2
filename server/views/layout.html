@@ -10,6 +10,9 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <!-- 父亲模板占位，可以被子模板覆盖的东西 -->
         <title>{% block title %} 首页 {% endblock %}</title>
+        {% if !isDev %}
+            <link rel="stylesheet" href="/public/css/lib.css">
+        {% endif %}
         {% block css %} {% endblock %}
     </head>
     <body>

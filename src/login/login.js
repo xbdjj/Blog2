@@ -2,7 +2,7 @@
 //require('bootstrap');//这里引入的bootstrap是js文件
 //require('BOOTSTRAP_CSS');//这里引入的bootstrap是css文件
 
-require('./login.css');
+require('!style-loader!css-loader!./login.css');
 let MD5=require('md5.js');
 console.log('我是登陆的.js');
 //返回的数据
