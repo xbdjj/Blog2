@@ -53,6 +53,22 @@ router.post('/user/check',(request,response,next)=>{
         }
     })
 })
+/**
+ * 注册(注册完后记得注释这里的代码)
+ */
+/*
+router.get('/user/registe',(request,response,next)=>{
+    new User({
+        username:'xbdjj',
+        password:'e10adc3949ba59abbe56e057f20f883e',//123456
+        email:'123556@qq.com'
+    }).save().then(user=>{
+        response.json(user);
+    }).catch(error=>{
+        console.log('报错了:',error);
+    });
+});
+*/
 
 //把对象返回出去
 module.exports=router;
